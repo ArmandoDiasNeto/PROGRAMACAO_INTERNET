@@ -96,6 +96,6 @@
                 </div>
             </div>
             @endauth 
-        </div>         
+        </div>       
     </body>
 </html>
