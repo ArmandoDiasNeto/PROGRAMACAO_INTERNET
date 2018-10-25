@@ -5,10 +5,14 @@
 			height:2px;
 			background-color:#CCC;
 		}
+		table tr th{
+			color:#FF0000;
+		}
 </style>
 @section('content')
-	<div class="container">
-		<h1>Novo Produto</h1>
+	<div class="container">		
+		<h1>Adicionar Produto</h1>
+		<div class="separaDiv"></div><br/>
 		<form method="POST" action="{{ route('produtos')}}">
 			{{ csrf_field() }}
 			<div class="form-group">
