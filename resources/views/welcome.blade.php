@@ -5,97 +5,50 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Projeto Laravel</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <!-- Styles -->
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
+            footer {
+                background-color:#000;
+                text-align:left;
             }
-
-            .full-height {
-                height: 100vh;
+            footer h3, h4{
+                margin-left:15px;
             }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
+            .jumbotron {
+                padding-left:20px;
+                text-align:left;
             }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                        <a href="{{ url('/produtos') }}">Produtos</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            
-            @auth
-            <h1>Logado no sistema</h1>
-            @else
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-            @endauth 
-        </div>       
+        <nav class="navbar navbar-inverse">            
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="./" class="navbar-brand">Projeto Laravel</a>
+                </div>                
+                <ul class="nav navbar-nav navbar-right">
+                        @auth
+                            <li><a href="{{ url('/home') }}">Home</a></li>
+                            <li><a href="{{ url('/produtos') }}">Produtos</a></li>
+                        @else
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @endauth
+                </ul>                
+            </div>            
+        </nav>
+       <div class="jumbotron">
+            <h2>Nós temos 5 produtos arquivados no sistema.</h2>
+            <p>E 2 usuários cadastrados.</p>
+        </div>
+        <footer style="position:absolute;left:0px;right:0px;bottom:0px;">
+             <h3>Developed by Luiz Fernando Malta Martins</h3>
+             <h4>Contato: lufmalta@gmail.com</h4>
+        </footer>   
     </body>
 </html>
