@@ -24,7 +24,6 @@ Route::get('/produtos', 'ProdutosController@index')->name('produtos');
 Route::get('/produtos/add', 'ProdutosController@add');//->name('produtos');
 Route::post('/produtos/add', 'ProdutosController@salvar');
 Route::post('/produtos/alterar/{id}', 'ProdutosController@alterar');
-//Route::put('/produtos/alterar/{any}', 'ProdutosController@alterar');
 Route::get('/produtos/excluir/{id}', 'ProdutosController@excluir');
 Route::get('/produtos/editar/{id}', 'ProdutosController@editar');
 // Route::get('/produtos/add', function(){

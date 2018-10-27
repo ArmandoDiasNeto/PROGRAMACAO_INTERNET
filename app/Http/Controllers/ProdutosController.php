@@ -26,9 +26,9 @@ class ProdutosController extends Controller
     public function index()
     {
     	
-    	$dono = Auth::user()->email;
+    	//$dono = Auth::user()->email;
     	//$lista = Produto::where('dono', $dono)->orderBy('item', 'desc')->get();
-        $lista = Produto::where('dono', $dono)->orderBy('item', 'desc')->paginate(10);
+        $lista = Produto::where('dono', Auth::user()->email)->orderBy('item', 'desc')->paginate(10);
     	$array = array('lista'=> $lista);
         
     	//quando entrar aqui em produtos, ele vai gerar
@@ -63,32 +63,18 @@ class ProdutosController extends Controller
             }
     }
     public function excluir($id){
-       
-       // $dono = Auth::user()->email;
-       // $produto = new Produto;
-       // $produto->delete();
+       $produto = Produto::where('id', $id)->where('dono', Auth::user()->email)->delete();
+       return redirect()->route('produtos'); 
     }
     public function editar($id){
-        // $any = explode('¨', $any);
-        // $array = array(
-        //    'novItem' => $any[0],
-        //    'novValor' => $any[1],
-        //    'id' => $any[2] 
-        // );
         $produto = Produto::findOrFail($id);
-
         return view('produtos.produtosEdicao', compact('produto'));
-        // echo $item."</br>";
-        // echo $valor."</br>";
-        // echo $id;
     }
-    
-    
     public function alterar(Request $request, $id){
            if($request->has('item')){
-                $dono = Auth::user()->email;
+                //$dono = Auth::user()->email;
                 $produto = Produto::where('id', $id)
-                     ->where('dono', $dono)
+                     ->where('dono', Auth::user()->email)
                      ->update(['item' => $request->item, 'valor' => $request->preco]);
                 return redirect()->route('produtos');            
            }else {
