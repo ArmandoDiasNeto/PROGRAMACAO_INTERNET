@@ -18,8 +18,8 @@
 @section('content')
 	<div class="container">		
 		<a href="{{url('/produtos/add')}}" class="btn btn-primary">Adicionar Produto</a>
-		<h3><strong>Lista de Produtos</strong></h3><br/>
 		@if(count($lista) > 0)
+		<h3><strong>Lista de Produtos</strong></h3><br/>
 		<table class="table table-bordered">
 			<tr>
 				<th>Produto</th>

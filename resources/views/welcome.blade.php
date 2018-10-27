@@ -43,9 +43,37 @@
             </div>            
         </nav>
        <div class="jumbotron">
-            <h2>Nós temos 5 produtos arquivados no sistema.</h2>
-            <p>E 2 usuários cadastrados.</p>
-        </div>
+            @auth
+                @if(count($lista) > 0) <!-- aqui ele pega os produtos especificamente de um usuario -->
+                    @if(count($lista) == 1)
+                    <h2>Você tem {{count($lista)}} produto cadastrado no sistema.</h2>
+                    @else
+                    <h2>Você tem {{count($lista)}} produtos cadastrados no sistema.</h2>
+                    @endif                 
+                @else
+                 <h2>Você não possui produtos arquivados no sistema</h2>
+                @endif    
+            @else
+                @if(count($lista) > 0) <!-- aqui ele pega os produtos de todos os usuarios -->
+                    @if(count($lista) == 1)
+                        <h2>Nós temos {{count($lista)}} produto arquivado no sistema.</h2>
+                    @else
+                        <h2>Nós temos {{count($lista)}} produtos arquivados no sistema.</h2>
+                    @endif
+                @else
+                <h2>Ainda não possui produtos arquivados no sistema</h2>
+                @endif
+                @if(count($users) > 0)
+                    @if(count($users) == 1)
+                        <p>E {{count($users)}} usuário cadastrado.</p>
+                    @else
+                        <p>E {{count($users)}} usuários cadastrados.</p>
+                    @endif      
+                @else
+                <h2>Ainda não possui usuarios cadastrados</h2> 
+                @endif 
+            @endauth   
+       </div>
         <footer style="position:absolute;left:0px;right:0px;bottom:0px;">
              <h3>Developed by Luiz Fernando Malta Martins</h3>
              <h4>Contato: lufmalta@gmail.com</h4>
