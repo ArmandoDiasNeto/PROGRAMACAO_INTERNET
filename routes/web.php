@@ -11,12 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/','welcome');
+
+// Route::get('/', function () {
+// 	return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/produtos', 'ProdutosController@index')->name('produtos');
-Route::post('/produtos', 'ProdutosController@add')->name('produtos');
+Route::get('/produtos/add', 'ProdutosController@add');//->name('produtos');
+Route::post('/produtos/add', 'ProdutosController@salvar');
+Route::post('/produtos/alterar/{id}', 'ProdutosController@alterar');
+//Route::put('/produtos/alterar/{any}', 'ProdutosController@alterar');
+Route::get('/produtos/excluir/{id}', 'ProdutosController@excluir');
+Route::get('/produtos/editar/{id}', 'ProdutosController@editar');
+// Route::get('/produtos/add', function(){
+// 	return view('errors.403');
+// });

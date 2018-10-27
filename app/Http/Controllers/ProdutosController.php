@@ -27,8 +27,10 @@ class ProdutosController extends Controller
     {
     	
     	$dono = Auth::user()->email;
-    	$lista = Produto::where('dono', $dono)->orderBy('item', 'desc')->get();
+    	//$lista = Produto::where('dono', $dono)->orderBy('item', 'desc')->get();
+        $lista = Produto::where('dono', $dono)->orderBy('item', 'desc')->paginate(10);
     	$array = array('lista'=> $lista);
+        
     	//quando entrar aqui em produtos, ele vai gerar
     	//o formulario para insercao de produtos
         
@@ -37,32 +39,61 @@ class ProdutosController extends Controller
         // com esse comando ele vai no banco e pega todos os produto
         // se quiser selecionar um produto x
         // usar $produto = Produto::where('id', 'o id que voce quer');
-       	return view('produtos', $array);// e depois de produtos vou colocar o array 
+       	return view('produtos.produtos', $array);// e depois de produtos vou colocar o array 
        	// com os dados do banco;
     }
     public function add(){
-    	if(!empty($_POST['item']) && !empty($_POST['preco'])){
-    		$item = $_POST['item'];
-    		$valor = $_POST['preco'];
-            $dono = Auth::user()->email;           
-            $produto = new Produto;
-            $produto->item = $item;
-            $produto->valor = $valor;
-            $produto->dono = $dono;
-            $produto->save();
-            return redirect()->route('produtos');
-    	}else{
-    		// aqui posso fazer ele voltar pra pagina 
-    		// e dar uma alerta de que esta errado alguma coisa
-    		echo "Nao mandou ambos";
-    	}
-    	
-    	//primeiro pego os dados
-    	// depois vou inserir no model
-    	//e depois inserir no banco de dados.
-    	//por ultimo redireciono para a pagina home.
-    	//enviando os dados que inseri no model.
+        $array = array(
+            'erro' => null
+        );
+        return view('produtos.produtoAdd', $array);
   		
-    	//return redirect()->route('home');
+    	// //return redirect()->route('home');
+    }
+    public function salvar(Request $request){
+            if($request->has('item')){
+               $produto = new Produto;
+               $produto->item = $request->item;
+               $produto->valor = $request->preco;
+               $produto->dono = Auth::user()->email;
+               $produto->save();
+               return redirect()->route('produtos');
+            }else {
+                return redirect()->back()->with('alert', 'É necessario preencher todos os campos');
+            }
+    }
+    public function excluir($id){
+       
+       // $dono = Auth::user()->email;
+       // $produto = new Produto;
+       // $produto->delete();
+    }
+    public function editar($id){
+        // $any = explode('¨', $any);
+        // $array = array(
+        //    'novItem' => $any[0],
+        //    'novValor' => $any[1],
+        //    'id' => $any[2] 
+        // );
+        $produto = Produto::findOrFail($id);
+
+        return view('produtos.produtosEdicao', compact('produto'));
+        // echo $item."</br>";
+        // echo $valor."</br>";
+        // echo $id;
+    }
+    
+    
+    public function alterar(Request $request, $id){
+           if($request->has('item')){
+                $dono = Auth::user()->email;
+                $produto = Produto::where('id', $id)
+                     ->where('dono', $dono)
+                     ->update(['item' => $request->item, 'valor' => $request->preco]);
+                return redirect()->route('produtos');            
+           }else {
+                return redirect()->route('produtos');//aqui dentro posso enviar um erro também, caso nao tenha preenchido tudo.
+                //echo "nao entrou";
+           }
     }
 }
