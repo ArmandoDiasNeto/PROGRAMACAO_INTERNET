@@ -14,7 +14,17 @@
                         </div>
                     @endif
                     
-                    Logado no sistema!
+                    <h3>Trocar a Senha</h3>
+                    <form method="POST" action="{{ url('/home/update')}}">
+                        {{ csrf_field() }},
+                        <div class="form-group">
+                            <label for="senha">Nova Senha</label>
+                            <input id="senha" type="text" name="senha" class="form-control" maxlength="50" placeholder="Senha" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Salvar" class="btn btn-primary">                        
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

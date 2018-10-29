@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use App\User;
 class HomeController extends Controller
 {
     /**
@@ -25,4 +26,22 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function update(Request $request){
+        if ($request->has('senha')){ 
+             $novaSenha = bcrypt($request->senha);
+             $id = Auth::user()->id; 
+             $user = User::where('id', $id)->update(['password' => $novaSenha]);
+             return redirect()->route('home');
+             //esta mudando normalmente no banco de dados, todavia sempre da um erro
+             //: Symfony \ Component \ HttpKernel \ Exception \ MethodNotAllowedHttpException 
+             //No message
+        }else {
+            return redirect()->route('home');//aqui dentro posso enviar um erro também, caso nao tenha preenchido tudo.
+        }
+       
+            //$dono = Auth::user()->email;
+            
+            return redirect()->route('produtos');            
+     }
 }
+
