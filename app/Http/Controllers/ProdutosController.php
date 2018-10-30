@@ -64,7 +64,10 @@ class ProdutosController extends Controller
        return redirect()->route('produtos'); 
     }
     public function editar($id){
-        $produto = Produto::find($id);
+        $produto = new Produto();
+        $produto = $produto->pegarProdutos($id);
+
+        //$produto = Produto::find($id);
         Log::info($produto);
         if($produto){            
             return view('produtos.produtosEdicao', compact('produto'));
