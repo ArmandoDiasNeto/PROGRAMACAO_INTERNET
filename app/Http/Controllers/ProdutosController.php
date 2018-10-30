@@ -44,18 +44,19 @@ class ProdutosController extends Controller
     public function salvar(Request $request){
       //o bail serve para ele executar somente a primeira opcao, neste caso o 'item', caso ela não funcione, ele ja retorna o erro. Caso funcione ele verifica os outros.
       $request->session()->flash('status', "É necessario preencher todos os campos");
-       if($request->validate([
-              'item' => 'bail|required|max:255',
+      $validator = $request->validate([
+              'item' => 'bail|required|max:50',
               'preco' => 'required',
-        ])){
-                   $produto = new Produto;
-                   $produto->item = $request->item;
-                   $produto->valor = $request->preco;
-                   $produto->dono = Auth::user()->email;
-                   $produto->save();
-                   $request->session()->flash('status', 'Produto foi inserido no sistema');
-                   return redirect()->route('produtos');    
-          }   
+        ]);
+      if($validator){
+        $produto = new Produto;
+        $produto->item = $request->item;
+        $produto->valor = $request->preco;
+        $produto->dono = Auth::user()->email;
+        $produto->save();
+        $request->session()->flash('status', 'Produto foi inserido no sistema');
+        return redirect()->route('produtos');
+      }
     }  
     public function excluir($id){
        $produto = Produto::where('id', $id)->where('dono', Auth::user()->email)->first();
