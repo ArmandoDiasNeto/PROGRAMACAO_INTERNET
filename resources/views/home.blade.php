@@ -7,13 +7,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    
+                <div class="panel-body">                   
+                    @include('partials._alert')
                     <h3>Trocar a Senha</h3>
                     <form method="POST" action="{{ url('/home/update')}}">
                         {{ csrf_field() }},

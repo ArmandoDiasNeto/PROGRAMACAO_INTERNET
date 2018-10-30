@@ -1,10 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Produto;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+
 
 class ProdutosController extends Controller
 {
@@ -16,6 +18,7 @@ class ProdutosController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        Log::info('Carregou controller de produtos');
     }
 
     /**
@@ -25,10 +28,10 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-    	
+    	Log::info('Carregou o index');
     	//$dono = Auth::user()->email;
     	//$lista = Produto::where('dono', $dono)->orderBy('item', 'desc')->get();
-        $lista = Produto::where('dono', Auth::user()->email)->orderBy('item', 'desc')->paginate(10);
+        $lista = Produto::where('dono', Auth::user()->email)->orderBy('item', 'desc')->paginate(3);
     	$array = array('lista'=> $lista);
         
     	//quando entrar aqui em produtos, ele vai gerar
@@ -57,18 +60,29 @@ class ProdutosController extends Controller
                $produto->valor = $request->preco;
                $produto->dono = Auth::user()->email;
                $produto->save();
+               Session::flash('status','Produto inserido com sucesso');
                return redirect()->route('produtos');
             }else {
                 return redirect()->back()->with('alert', 'É necessario preencher todos os campos');
             }
     }
     public function excluir($id){
-       $produto = Produto::where('id', $id)->where('dono', Auth::user()->email)->delete();
+       $produto = Produto::where('id', $id)->where('dono', Auth::user()->email)->first();
+       if($produto){
+            $produto->delete();
+            Session::flash('status','Produto removido com sucesso'); 
+
+       }
        return redirect()->route('produtos'); 
     }
     public function editar($id){
-        $produto = Produto::findOrFail($id);
-        return view('produtos.produtosEdicao', compact('produto'));
+        $produto = Produto::find($id);
+        Log::info($produto);
+        if($produto){            
+            return view('produtos.produtosEdicao', compact('produto'));
+        }
+        //return view('produtos.produtosEdicao', compact('produto'));
+        return redirect('produtos');
     }
     public function alterar(Request $request, $id){
            if($request->has('item')){
@@ -76,6 +90,7 @@ class ProdutosController extends Controller
                 $produto = Produto::where('id', $id)
                      ->where('dono', Auth::user()->email)
                      ->update(['item' => $request->item, 'valor' => $request->preco]);
+                Session::flash('status','Produto alterado com sucesso');
                 return redirect()->route('produtos');            
            }else {
                 return redirect()->route('produtos');//aqui dentro posso enviar um erro também, caso nao tenha preenchido tudo.
