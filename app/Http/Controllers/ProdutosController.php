@@ -44,21 +44,39 @@ class ProdutosController extends Controller
     }
     public function salvar(Request $request){
       //o bail serve para ele executar somente a primeira opcao, neste caso o 'item', caso ela não funcione, ele ja retorna o erro. Caso funcione ele verifica os outros.
-      $request->session()->flash('status', "É necessario preencher todos os campos");
-      $validator = $request->validate([
-              'item' => 'bail|required|max:50',
-              'preco' => 'required',
-        ]);
-      if($validator){
-        $produto = new Produto;
-        $produto->item = $request->item;
-        $produto->valor = $request->preco;
-        $produto->dono = Auth::user()->email;
-        $produto->save();
-        $request->session()->flash('status', 'Produto foi inserido no sistema');
-        return redirect()->route('produtos');
-      }
-      
+      //primeiro usei essa tentantiva, funcionou, todavia dessa maneira nao consigo mostrar todos os erros que deram, apenas um erro específico que é o do flash.
+      // $request->session()->flash('status', "É necessario preencher todos os campos");
+      // $validator = $request->validate([
+      //         'item' => 'bail|required|max:50',
+      //         'preco' => 'required',
+      //   ]);
+      // if($validator){
+      //   $produto = new Produto;
+      //   $produto->item = $request->item;
+      //   $produto->valor = $request->preco;
+      //   $produto->dono = Auth::user()->email;
+      //   $produto->save();
+      //   $request->session()->flash('status', 'Produto foi inserido no sistema');
+      //   return redirect()->route('produtos');
+      // }
+      $validator = Validator::make($request->all(), [
+          'item' => 'required|max:50|min:5',
+          'preco' => 'required',
+
+      ]);
+      if($validator->fails()){
+         return redirect('/produtos/add')
+           ->withErrors($validator)
+           ->withInput();
+      }else {
+         $produto = new Produto;
+         $produto->item = $request->item;
+         $produto->valor = $request->preco;
+         $produto->dono = Auth::user()->email;
+         $produto->save();
+         $request->session()->flash('status', 'Produto foi inserido no sistema');
+         return redirect()->route('produtos');
+      } 
     }  
     public function excluir($id){
        $produto = Produto::where('id', $id)->where('dono', Auth::user()->email)->first();
@@ -89,8 +107,8 @@ class ProdutosController extends Controller
 
         if ($validator->fails()) {
             return redirect('/produtos')
-                        ->withErrors($validator)
-                        ->withInput();
+              ->withErrors($validator)
+              ->withInput();
         }else {
           $produto = Produto::where('id', $id)
                      ->where('dono', Auth::user()->email)

@@ -15,14 +15,7 @@
 @section('content')
         <div class="container">
         	<span><h1>Adicionar Produto</h1></span><br/>
-        	@if (session('status'))
-   	        <div class="alert alert-danger">
-   	        	{{ session('status') }}
-   	        	<button class="close" data-dismiss="alert" >
-   	        		<span aria-hidden="true">&times;</span>
-   	        	</button>   	        
-   	        </div>
-			@endif        	
+        	@include('partials._alert')        	
 			<div class="separaDiv"></div><br/>
 			<form method="POST" action="{{ url('/produtos/add')}}">
 				{{ csrf_field() }}
