@@ -12,15 +12,13 @@ class WelcomeController extends Controller
         // o primeiro if é para o caso de nao ter usuario logado.
     	if(empty(Auth::user()->email)){
     		$users = User::all();
-    		$lista = Produto::all();
-    		$array = array('lista'=> $lista, 'users' => $users);
-    		return view('welcome', $array);
+    		$lista = Produto::all();    		
+    		return view('welcome', compact('lista','users'));
         //o else é no caso de ter algum usuario logado.
     	}else {
     		$dono = Auth::user()->email;
     		$lista = Produto::where('dono', $dono)->get();
-    		$array = array('lista' => $lista);
-    		return view('welcome', $array);
+    		return view('welcome', compact('lista'));
     	}
     }
 }
