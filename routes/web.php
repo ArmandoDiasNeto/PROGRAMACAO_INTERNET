@@ -21,7 +21,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home/update', 'HomeController@update');//->name('home')
 Route::get('/produtos', 'ProdutosController@index')->name('produtos');
-Route::get('/produtos/add', 'ProdutosController@add');//->name('produtos');
+Route::get('/produtos/add', 'ProdutosController@add')->name('produtos.produtoAdd');
 Route::post('/produtos/add', 'ProdutosController@salvar');
 Route::post('/produtos/alterar/{id}', 'ProdutosController@alterar');
 Route::get('/produtos/excluir/{id}', 'ProdutosController@excluir');
