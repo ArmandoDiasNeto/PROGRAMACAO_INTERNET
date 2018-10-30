@@ -115,23 +115,6 @@ class ProdutosController extends Controller
                      ->update(['item' => $request->item, 'valor' => $request->preco]);
           $request->session()->flash('status', 'Produto Alterado com sucesso');//Session::flash('status','Produto alterado com sucesso');
           return redirect()->route('produtos');  
-        }
-
-
-
-
-
-
-        // if($request->has('item')){
-        //         //$dono = Auth::user()->email;
-        //         $produto = Produto::where('id', $id)
-        //              ->where('dono', Auth::user()->email)
-        //              ->update(['item' => $request->item, 'valor' => $request->preco]);
-        //         $request->session()->flash('status', 'Produto Alterado com sucesso');//Session::flash('status','Produto alterado com sucesso');
-        //         return redirect()->route('produtos');            
-        // }else {
-        //         return redirect()->route('produtos');//aqui dentro posso enviar um erro também, caso nao tenha preenchido tudo.
-        //         //echo "nao entrou";
-        // }   
+        }  
     }
 }
