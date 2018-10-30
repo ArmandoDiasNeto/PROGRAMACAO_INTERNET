@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Validator;
 use Illuminate\Support\Facades\Session;
 class HomeController extends Controller
 {
@@ -28,22 +29,36 @@ class HomeController extends Controller
         return view('home');
     }
     public function update(Request $request){
-        if ($request->has('senha')){ 
-             $novaSenha = bcrypt($request->senha);
-             $id = Auth::id(); 
-             $user = User::where('id', $id)->update(['password' => $novaSenha]);
-             Session::flash('status', "Sua senha foi alterada com sucesso");
-             return redirect()->route('home');
-             //esta mudando normalmente no banco de dados, todavia sempre da um erro
-             //: Symfony \ Component \ HttpKernel \ Exception \ MethodNotAllowedHttpException 
-             //No message
+        $validator = Validator::make($request->all(), [
+            'senha'  => 'required|min:10|max:22',
+            'senha2' => 'required|min:10|max:22', 
+
+        ]);
+        if($validator->fails()){
+            return redirect('home')
+                 ->withErrors($validator)
+                 ->withInput();
         }else {
-            return redirect()->route('home');//aqui dentro posso enviar um erro também, caso nao tenha preenchido tudo.
-        }
-       
-            //$dono = Auth::user()->email;
+            $senha1 = $request->senha;
+            $senha2 = $request->senha2;
+            if($senha1 == $senha2){
+                $id = Auth::id();
+                $user = User::where('id', $id);
+                if($user){
+                //$user->password = bcrypt($request->senha);
+                $user->update(['password' => bcrypt($senha1)]);
+                $request->session()->flash('status', 'Senha alterada com sucesso');
+                return redirect('home');
+            }
             
-            return redirect()->route('produtos');            
-     }
+        }else {
+            $errors = array(
+               'erro' => 'A duas senhas devem ser iguais'
+            );
+            return redirect('home')
+                 ->withErrors($errors);
+        }
+     }            
+  }
 }
 
