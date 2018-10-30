@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Produto;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,7 @@ class ProdutosController extends Controller
         $request->session()->flash('status', 'Produto foi inserido no sistema');
         return redirect()->route('produtos');
       }
+      
     }  
     public function excluir($id){
        $produto = Produto::where('id', $id)->where('dono', Auth::user()->email)->first();
@@ -80,16 +82,38 @@ class ProdutosController extends Controller
         return redirect('produtos');
     }
     public function alterar(Request $request, $id){
-           if($request->has('item')){
-                //$dono = Auth::user()->email;
-                $produto = Produto::where('id', $id)
+       $validator = Validator::make($request->all(), [
+            'item' => 'required|max:50',
+            'preco' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/produtos')
+                        ->withErrors($validator)
+                        ->withInput();
+        }else {
+          $produto = Produto::where('id', $id)
                      ->where('dono', Auth::user()->email)
                      ->update(['item' => $request->item, 'valor' => $request->preco]);
-                $request->session()->flash('status', 'Produto Alterado com sucesso');//Session::flash('status','Produto alterado com sucesso');
-                return redirect()->route('produtos');            
-           }else {
-                return redirect()->route('produtos');//aqui dentro posso enviar um erro também, caso nao tenha preenchido tudo.
-                //echo "nao entrou";
-           }
+          $request->session()->flash('status', 'Produto Alterado com sucesso');//Session::flash('status','Produto alterado com sucesso');
+          return redirect()->route('produtos');  
+        }
+
+
+
+
+
+
+        // if($request->has('item')){
+        //         //$dono = Auth::user()->email;
+        //         $produto = Produto::where('id', $id)
+        //              ->where('dono', Auth::user()->email)
+        //              ->update(['item' => $request->item, 'valor' => $request->preco]);
+        //         $request->session()->flash('status', 'Produto Alterado com sucesso');//Session::flash('status','Produto alterado com sucesso');
+        //         return redirect()->route('produtos');            
+        // }else {
+        //         return redirect()->route('produtos');//aqui dentro posso enviar um erro também, caso nao tenha preenchido tudo.
+        //         //echo "nao entrou";
+        // }   
     }
 }

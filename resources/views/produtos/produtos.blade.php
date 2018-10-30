@@ -17,7 +17,7 @@
 </style>
 @section('content')
 	<div class="container">	
-		@include('partials._alert')	
+		@include('partials._alert')	 
 		<a href="{{url('/produtos/add')}}" class="btn btn-primary">Adicionar Produto</a>
 		@if(count($lista) > 0)
 		<h3><strong>Lista de Produtos</strong></h3><br/>
