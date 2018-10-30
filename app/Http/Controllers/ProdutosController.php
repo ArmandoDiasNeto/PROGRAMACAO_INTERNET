@@ -29,21 +29,9 @@ class ProdutosController extends Controller
     public function index()
     {
     	Log::info('Carregou o index');
-    	//$dono = Auth::user()->email;
-    	//$lista = Produto::where('dono', $dono)->orderBy('item', 'desc')->get();
-        $lista = Produto::where('dono', Auth::user()->email)->orderBy('item', 'desc')->paginate(3);
-    	$array = array('lista'=> $lista);
-        
-    	//quando entrar aqui em produtos, ele vai gerar
-    	//o formulario para insercao de produtos
-        
-        // para pegar os dados do produto é so usar
-        // $produto = Produto::all();
-        // com esse comando ele vai no banco e pega todos os produto
-        // se quiser selecionar um produto x
-        // usar $produto = Produto::where('id', 'o id que voce quer');
-       	return view('produtos.produtos', $array);// e depois de produtos vou colocar o array 
-       	// com os dados do banco;
+        $lista = new Produto();
+        $lista = $lista->pegarProdutos();
+       	return view('produtos.produtos', compact('lista'));
     }
     public function add(){
         $array = array(
