@@ -21,11 +21,11 @@
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label for="item">Item</label>
-					<input id="item" type="text" name="item" class="form-control" placeholder="Produto">
+					<input id="item" type="text" name="item" class="form-control" placeholder="Produto" value="{{old('item','')}}">
 				</div>
 				<div class="form-group">
 					<label for="preco">Preço</label>
-					<input id="preco" type="text" name="preco" class="form-control"placeholder="Preço">
+					<input id="preco" type="text" name="preco" class="form-control"placeholder="Preço" value="{{old('preco','')}}">
 				</div>
 				<div class="form-group">
 					<input type="submit" value="Salvar" class="btn btn-primary">

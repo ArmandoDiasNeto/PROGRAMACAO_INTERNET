@@ -62,7 +62,8 @@ class HomeController extends Controller
                'erro' => 'A duas senhas precisam ser iguais'
             );
             return redirect('home')
-                 ->withErrors($errors);
+                 ->withErrors($errors)
+                 ->withInput();
         }
      }            
   }
