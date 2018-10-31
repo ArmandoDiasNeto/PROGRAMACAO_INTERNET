@@ -33,6 +33,11 @@ class HomeController extends Controller
             'senha'  => 'required|min:10|max:22',
             'senha2' => 'required|min:10|max:22', 
 
+        ], [
+             'required' => 'O campo :attribute precisa ser preenchido',
+             'min' => 'O campo :attribute precisa ter no mínimo :min caracteres',
+             'max' => 'O campo :attribute precisa ter no máximo :max caracteres',
+
         ]);
         if($validator->fails()){
             return redirect('home')
@@ -53,7 +58,7 @@ class HomeController extends Controller
             
         }else {
             $errors = array(
-               'erro' => 'A duas senhas devem ser iguais'
+               'erro' => 'A duas senhas precisam ser iguais'
             );
             return redirect('home')
                  ->withErrors($errors);

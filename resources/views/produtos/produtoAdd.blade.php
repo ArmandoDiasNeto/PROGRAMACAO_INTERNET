@@ -20,12 +20,12 @@
 			<form method="POST" action="{{ url('/produtos/add')}}">
 				{{ csrf_field() }}
 				<div class="form-group">
-					<label for="item">Produto</label>
-					<input id="item" type="text" name="item" class="form-control" maxlength="50" placeholder="Produto">
+					<label for="item">Item</label>
+					<input id="item" type="text" name="item" class="form-control" placeholder="Produto">
 				</div>
 				<div class="form-group">
 					<label for="preco">Preço</label>
-					<input id="preco" type="text" name="preco" class="form-control" maxlength="10" placeholder="Preço">
+					<input id="preco" type="text" name="preco" class="form-control"placeholder="Preço">
 				</div>
 				<div class="form-group">
 					<input type="submit" value="Salvar" class="btn btn-primary">

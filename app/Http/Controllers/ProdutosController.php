@@ -47,8 +47,12 @@ class ProdutosController extends Controller
       //primeiro usei essa tentantiva, funcionou, todavia dessa maneira nao consigo mostrar todos os erros que deram, apenas um erro específico que é o do flash.
       //$request->session()->flash('status', "É necessario preencher todos os campos");
       $this->validate($request, [
-              'item' => 'bail|required|max:50',
-              'preco' => 'required',
+          'item' => 'bail|required|min:3|max:50',
+          'preco' => 'required|min:2|max:11',
+        ], [
+          'required' => 'O campo :attribute deve ser preenchido',
+          'min'      => 'O campo :attribute deve ter no mínimo :min caracteres',
+          'max'      => 'O campo :attribute deve ter no máximo :max caracteres',
         ]);
         $produto = new Produto;
         $produto->item = $request->item;
@@ -100,20 +104,18 @@ class ProdutosController extends Controller
     }
     public function alterar(Request $request, $id){
        $validator = Validator::make($request->all(), [
-            'item' => 'required|max:50',
-            'preco' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/produtos')
-              ->withErrors($validator)
-              ->withInput();
-        }else {
+           'item'  => 'required|min:3|max:50',
+           'preco' => 'required|min:2|max:11',
+        ], [
+           'required' => 'O campo :attribute deve ser preenchido',
+           'min'      => 'O campo :attribute deve ter no mínimo :min caracteres',
+           'max'      => 'O campo :attribute deve ter no máximo :max caracteres',
+        ])->validate();
           $produto = Produto::where('id', $id)
                      ->where('dono', Auth::user()->email)
                      ->update(['item' => $request->item, 'valor' => $request->preco]);
           $request->session()->flash('status', 'Produto Alterado com sucesso');//Session::flash('status','Produto alterado com sucesso');
           return redirect()->route('produtos');  
-        }  
+          
     }
 }

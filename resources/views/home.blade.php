@@ -14,11 +14,11 @@
                         {{ csrf_field() }},
                         <div class="form-group">
                             <label for="senha">Nova Senha</label>
-                            <input id="senha" type="text" name="senha" class="form-control" maxlength="50" placeholder="Senha">
+                            <input id="senha" type="password" name="senha" class="form-control" maxlength="50" placeholder="Senha">
                         </div>
                         <div class="form-group">
                             <label for="senha2">Nova Senha (novamente)</label>
-                            <input id="senha2" type="text" name="senha2" class="form-control" maxlength="50" placeholder="Senha">
+                            <input id="senha2" type="password" name="senha2" class="form-control" maxlength="50" placeholder="Senha">
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Salvar" class="btn btn-primary">                        
