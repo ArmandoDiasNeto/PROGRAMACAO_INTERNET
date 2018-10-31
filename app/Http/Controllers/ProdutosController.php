@@ -103,14 +103,18 @@ class ProdutosController extends Controller
         return redirect('produtos');
     }
     public function alterar(Request $request, $id){
-       $validator = Validator::make($request->all(), [
-           'item'  => 'required|min:3|max:50',
-           'preco' => 'required|min:2|max:11',
-        ], [
-           'required' => 'O campo :attribute deve ser preenchido',
-           'min'      => 'O campo :attribute deve ter no mínimo :min caracteres',
-           'max'      => 'O campo :attribute deve ter no máximo :max caracteres',
-        ])->validate();
+       $input = $request->all();
+       $rules = array(
+          'item'  => 'required|min:3|max:50',
+          'preco' => 'required|min:2|max:11',
+       );
+       $msg = array(
+          'required' => 'O campo :attribute deve ser preenchido',
+          'min'      => 'O campo :attribute deve ter no mínimo :min caracteres',
+          'max'      => 'O campo :attribute deve ter no máximo :max caracteres',
+
+       );       
+       $validator = Validator::make($input, $rules, $msg)->validate();
           $produto = Produto::where('id', $id)
                      ->where('dono', Auth::user()->email)
                      ->update(['item' => $request->item, 'valor' => $request->preco]);

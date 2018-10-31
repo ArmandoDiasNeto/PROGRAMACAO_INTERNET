@@ -29,7 +29,8 @@ class HomeController extends Controller
         return view('home');
     }
     public function update(Request $request){
-        $validator = Validator::make($request->all(), [
+        $input = $request->all();
+        $validator = Validator::make($input, [
             'senha'  => 'required|min:10|max:22',
             'senha2' => 'required|min:10|max:22', 
 
