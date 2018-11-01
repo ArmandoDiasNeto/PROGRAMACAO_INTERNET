@@ -49,11 +49,14 @@ class ProdutosController extends Controller
       $this->validate($request, [
           'item' => 'bail|required|min:3|max:50',
           'preco' => 'required|min:2|max:11',
-        ], [
-          'required' => 'O campo :attribute deve ser preenchido',
-          'min'      => 'O campo :attribute deve ter no mínimo :min caracteres',
-          'max'      => 'O campo :attribute deve ter no máximo :max caracteres',
         ]);
+        // posso colocar um terceiro parâmetro dentro do validate
+        //seria esse o da mensagens:
+        // , [
+        //   'required' => 'O campo :attribute deve ser preenchido',
+        //   'min'      => 'O campo :attribute deve ter no mínimo :min caracteres',
+        //   'max'      => 'O campo :attribute deve ter no máximo :max caracteres',
+        // ]
         $produto = new Produto;
         $produto->item = $request->item;
         $produto->valor = $request->preco;
