@@ -19,7 +19,6 @@
 	<div class="container">	
 		@include('partials._alert')	 
 		<a href="{{url('/produtos/add')}}" class="btn btn-primary">Adicionar Produto</a>
-		@if(count($lista) > 0)
 		<h3><strong>Lista de Produtos</strong></h3><br/>
 		<table class="table table-bordered">
 			<tr>
@@ -28,17 +27,19 @@
 				<th>Editar</th>
 				<th>Excluir</th>
 			</tr>
-			@foreach($lista as $item)
+		@forelse($lista as $item)		
 			<tr>
 				<td><strong>{{ $item->item }}</strong></td>
 				<td>{{ $item->valor }}</td>
 				<td><a href="{{url('/produtos/editar/'.$item->id)}}" class="btn btn-default btn-lg">Editar</a></td>
 				<td><a href="{{url('/produtos/excluir/'.$item->id)}}" class="btn btn-info btn-lg" onClick="return confirm('Tem certeza que deseja excluir?')">Excluir</a></td>
 			</tr>					   
-			@endforeach
+			@empty
+			</table>
+			<h3><strong>Sem produtos cadastrados</strong></h3>
+			@endforelse
 		</table>
-		{{$lista->links()}}
-		@endif	
+		{{$lista->links()}}	
 	</div>
 @endsection
  
