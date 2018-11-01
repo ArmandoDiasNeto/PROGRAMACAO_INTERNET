@@ -19,15 +19,17 @@
 	<div class="container">	
 		@include('partials._alert')	 
 		<a href="{{url('/produtos/add')}}" class="btn btn-primary">Adicionar Produto</a>
-		<h3><strong>Lista de Produtos</strong></h3><br/>
-		<table class="table table-bordered">
-			<tr>
+		@forelse($lista as $item)
+			@if($loop->first)
+			 <h3><strong>Lista de Produtos</strong></h3><br/>
+		     <table class="table table-bordered">
+			  <tr>
 				<th>Produto</th>
 				<th>Valor</th>
 				<th>Editar</th>
 				<th>Excluir</th>
-			</tr>
-		@forelse($lista as $item)		
+			  </tr>
+			@endif		
 			<tr>
 				<td><strong>{{ $item->item }}</strong></td>
 				<td>{{ $item->valor }}</td>
