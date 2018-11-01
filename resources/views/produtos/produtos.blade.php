@@ -17,7 +17,7 @@
 </style>
 @section('content')
 	<div class="container">	
-		@include('partials._alert')	 
+		@include('partials._alert') 
 		<a href="{{url('/produtos/add')}}" class="btn btn-primary">Adicionar Produto</a>
 		@forelse($lista as $item)
 			@if($loop->first)
