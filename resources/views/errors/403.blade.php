@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Erro 403</title>
-	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/website.css') }}" rel="stylesheet">
 </head>
 <body>
 	<div class="container">

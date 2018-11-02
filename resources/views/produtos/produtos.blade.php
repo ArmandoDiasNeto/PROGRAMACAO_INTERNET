@@ -1,21 +1,6 @@
 @extends('layouts.app')
-<style type="text/css">
-		.separaDiv{
-			width:100%;
-			height:2px;
-			background-color:#CCC;
-		}
-		table tr th{
-			color:#FF0000;
-		}
-		.container h1, h3{
-			text-align:center;
-		}
-		span {
-			color: green;
-		}
-</style>
 @section('content')
+	<link rel="stylesheet" type="text/css" href="{{mix('css/produto.css')}}">
 	<div class="container">	
 		@include('partials._alert') 
 		<a href="{{url('/produtos/add')}}" class="btn btn-primary">Adicionar Produto</a>
