@@ -9,16 +9,9 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/website.css') }}" rel="stylesheet">
         <!-- Styles -->
         <style>
-            footer {
-                background-color:#000;
-                text-align:left;
-            }
-            footer h3, h4{
-                margin-left:15px;
-            }
             .jumbotron {
                 padding-left:20px;
                 text-align:left;
@@ -74,9 +67,9 @@
                 @endif 
             @endauth   
        </div>
-        <footer style="position:absolute;left:0px;right:0px;bottom:0px;">
-             <h3>Developed by Luiz Fernando Malta Martins</h3>
-             <h4>Contato: lufmalta@gmail.com</h4>
-        </footer>   
+       <footer>
+            <h3>Developed by Luiz Fernando Malta Martins</h3>     
+            <h4>Contato: lufmalta@gmail.com</h4>
+       </footer>   
     </body>
 </html>

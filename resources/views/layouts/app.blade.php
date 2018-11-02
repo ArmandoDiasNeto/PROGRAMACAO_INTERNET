@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/website.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -73,7 +73,10 @@
 
         @yield('content')
     </div>
-
+    <footer>
+        <h3>Developed by Luiz Fernando Malta Martins</h3>     
+        <h4>Contato: lufmalta@gmail.com</h4>
+    </footer>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
