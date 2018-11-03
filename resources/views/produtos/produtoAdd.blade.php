@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-		<link rel="stylesheet" type="text/css" href="{{mix('css/produto.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{mix('css/produtos/produto.css')}}">
         <div class="container">
         	<span><h1>Adicionar Produto</h1></span><br/>
         	@include('partials._alert')        	
@@ -17,7 +17,7 @@
 				</div>
 				<div class="form-group">
 					<input type="submit" value="Salvar" class="btn btn-primary">
-					<a href="{{ url('/produtos')}}" class="btn btn-primary">Voltar</a>
+					<a href="{{ route('produtos')}}" class="btn btn-primary">Voltar</a>
 				</div>							
 			</form>
         </div>	

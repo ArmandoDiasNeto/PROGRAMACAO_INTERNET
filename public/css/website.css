@@ -6,15 +6,17 @@ footer {
   right: 0px;
   bottom: 0px;
   z-index: -1;
-}
-
-footer {
   background-color: #000;
 }
 
 footer h3,
-h4 {
+footer h4 {
   margin-left: 15px;
+  text-align: left;
+}
+
+.jumbotron {
+  padding-left: 20px;
   text-align: left;
 }
 

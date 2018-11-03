@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-	<link rel="stylesheet" type="text/css" href="{{mix('css/produto.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{mix('css/produtos/produto.css')}}">
 	<div class="container">	
 		@include('partials._alert') 
 		<a href="{{url('/produtos/add')}}" class="btn btn-primary">Adicionar Produto</a>
@@ -19,7 +19,7 @@
 				<td><strong>{{ $item->item }}</strong></td>
 				<td>{{ $item->valor }}</td>
 				<td><a href="{{url('/produtos/editar/'.$item->id)}}" class="btn btn-default btn-lg">Editar</a></td>
-				<td><a href="{{url('/produtos/excluir/'.$item->id)}}" class="btn btn-info btn-lg" onClick="return confirm('Tem certeza que deseja excluir?')">Excluir</a></td>
+				<td><a href="{{url('/produtos/excluir/'.$item->id)}}" class="btn btn-info btn-lg excluir">Excluir</a></td>
 			</tr>					   
 			@empty
 			</table>
