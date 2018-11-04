@@ -20,7 +20,7 @@
                             <input id="senha2" type="password" name="senha2" class="form-control" maxlength="50" placeholder="Senha" value="{{old('senha2','')}}">
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Salvar" class="btn btn-primary">                        
+                            <input type="submit" value="Salvar" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
