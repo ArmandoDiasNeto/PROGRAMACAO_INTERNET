@@ -1,33 +1,6 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">       
-        <title>Projeto Laravel</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/website.css') }}" rel="stylesheet">
-        <!-- Styles -->
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse">            
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a href="./" class="navbar-brand">Projeto Laravel</a>
-                </div>                
-                <ul class="nav navbar-nav navbar-right">
-                        @auth
-                            <li><a href="{{ url('/home') }}">Home</a></li>
-                            <li><a href="{{ url('/produtos') }}">Produtos</a></li>
-                        @else
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @endauth
-                </ul>                
-            </div>            
-        </nav>
-       <div class="jumbotron">
+@extends('layouts.app')
+@section('content')
+        <div class="jumbotron">
             @auth
                 @if(count($lista) > 0) {{-- aqui ele pega os produtos especificamente de um usuario --}}
                     @if(count($lista) == 1) {{-- aqui é no caso de ter apenas 1 produto --}}
@@ -66,3 +39,21 @@
     <script type="text/javascript" src="{{mix('js/website.js')}}"></script>  
     </body>
 </html>
+@endsection
+        <!-- <nav class="navbar navbar-inverse">            
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="./" class="navbar-brand">Projeto Laravel</a>
+                </div>                
+                <ul class="nav navbar-nav navbar-right">
+                        @auth
+                            <li><a href="{{ url('/home') }}">Home</a></li>
+                            <li><a href="{{ url('/produtos') }}">Produtos</a></li>
+                        @else
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @endauth
+                </ul>                
+            </div>            
+        </nav> -->
+       
