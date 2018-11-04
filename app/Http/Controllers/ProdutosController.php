@@ -118,9 +118,13 @@ class ProdutosController extends Controller
 
        );       
        $validator = Validator::make($input, $rules, $msg)->validate();
-          $produto = Produto::where('id', $id)
-                     ->where('dono', Auth::user()->email)
-                     ->update(['item' => $request->item, 'valor' => $request->preco]);
+          $produto = Produto::where([
+            ['id','=',$id],
+            ['dono', '=', Auth::user()->email]
+
+          ]);
+
+          $produto->update(['item' => $request->item, 'valor' => $request->preco]);
           $request->session()->flash('status', 'Produto Alterado com sucesso');//Session::flash('status','Produto alterado com sucesso');
           return redirect()->route('produtos');  
           
