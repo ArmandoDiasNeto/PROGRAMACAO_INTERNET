@@ -99,6 +99,7 @@ class ProdutosController extends Controller
 
         //$produto = Produto::find($id);
         Log::info($produto);
+        //aqui ele verifica se teve alguma resposta da requisicao na model.
         if($produto){            
             return view('produtos.produtosEdicao', compact('produto'));
         }
